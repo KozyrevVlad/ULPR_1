@@ -1,0 +1,306 @@
+Реализация сторонних алгоритмов на C#
+
+1)
+static void Main(string[] args)
+        {
+            int x = int.Parse(Console.ReadLine());
+            int y = int.Parse(Console.ReadLine());
+
+            x = x + y;
+            y = x - y;
+            x = x - y;
+
+            Console.WriteLine($"{x} {y}");
+        }
+2)
+static void Main(string[] args)
+        {
+            double n = int.Parse(Console.ReadLine());
+
+            if (n > 1000)
+            {
+                n = n * 0.9;
+            }
+            Console.WriteLine(n);
+        }
+3)
+static void Main(string[] args)
+        {
+            Console.WriteLine("Заполните массив:");
+            int[] mn = new int[10];
+            for (int i = 0; i < mn.Length; i++)
+            {
+                mn[i] = int.Parse(Console.ReadLine());
+            }
+            int k = 0;
+
+            for (int i = 1; i < mn.Length - 1; i++)
+            {
+                if (mn[i + 1] / mn[i - 1] == 2)
+                    k += 1;
+                if (mn[i - 1] / mn[i + 1] == 2)
+                    k += 1;
+            }
+
+            Console.WriteLine(k);
+        }
+4)
+static void Main(string[] args)
+        {
+            Console.WriteLine("Введите число S:");
+            int s = int.Parse(Console.ReadLine());
+
+            int k = (Convert.ToString(s)).Length;
+
+            Console.Write($"{Math.Truncate((s % Math.Pow(10, k)) / Math.Pow(10, k - 1))} * 10^{k - 1}");
+
+            for (int i = k - 1; i > 0; i--)
+            {
+                Console.Write($" + {Math.Truncate((s % Math.Pow(10, i)) / Math.Pow(10, i - 1))} * 10^{i - 1}");
+            }
+
+            Console.WriteLine();
+        }
+5)
+static void Main(string[] args)
+        {
+            int sum = 0;
+
+            Console.WriteLine("Введите число X:");
+            int X = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Введите число N:");
+            int N = int.Parse(Console.ReadLine());
+
+            while(N != 0)
+            {
+                if (N > X)
+                {
+                    sum = sum + N;
+                    N = int.Parse(Console.ReadLine());
+                }
+                else
+                    N = int.Parse(Console.ReadLine());
+            }
+
+            Console.WriteLine(sum);
+        }
+6)
+static void Main(string[] args)
+        {
+            Console.WriteLine("Введите число n:");
+            int n = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Введите число d:");
+            int d = int.Parse(Console.ReadLine());
+
+            int k = 0;
+
+            for(int i = n; i > d; i--)
+            {
+                if (n % i == 0)
+                    k = k + 1;
+            }
+
+            Console.WriteLine($"{k} - количество делителей");
+        }
+
+Задания без вариантов
+
+1)
+static void Main(string[] args)
+        {
+            Console.WriteLine("Введите верхнюю границу");
+            int n = int.Parse(Console.ReadLine());
+
+            back:
+
+            Console.WriteLine("Введите количество попыток от 1 до 5");
+            int k = int.Parse(Console.ReadLine());
+            
+            if (k <= 0)
+            {
+                Console.WriteLine("Ошибка, k должно быть положительным и не ровняться 0");
+                goto back;
+            }
+
+            Random random = new Random();
+            int b = random.Next(1, n);
+
+            Console.WriteLine("Введите число");
+            int a = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < k; i++)
+            {
+                if (a > b)
+                {
+                    Console.WriteLine("Меньше");
+                }
+                if (a < b)
+                {
+                    Console.WriteLine("Больше");
+                }
+                if (a == b)
+                {
+                    Console.WriteLine("Вы угадали");
+                    goto win;
+                }
+
+                a = int.Parse(Console.ReadLine());
+            }
+            Console.WriteLine("Попытки закончились");
+        win:
+            Console.WriteLine("Победа");
+        }
+2)
+static void Main(string[] args)
+        {
+            Console.WriteLine("Введите число");
+
+            int N = int.Parse(Console.ReadLine());
+
+            int i = 0;
+
+            for (int a = 1; a < 1000; a++)
+            {
+                for (int b = 1; b < 1000; b++)
+                {
+                    for (int c = 1; c < 1000; c++)
+                    {
+                        int A = a * a;
+                        int B = b * b;
+                        int C = c * c;
+
+                        int Sum = A + B;
+
+                        if (Sum == C)
+                        {
+                            double S = (a * b) / 2;
+
+                            if (N >= S)
+                            {
+                                Console.WriteLine($"Треугольник со сторонами a={A} b={B} c={C}");
+                                Console.WriteLine($"Площадь треугольника S={S} ");
+
+                                i = i + 1;
+                            }
+                        }
+                    }
+                }
+            }
+            Console.WriteLine($"i = {i}");
+        }
+3)
+static void Main(string[] args)
+        {
+            int YEAR = 365;
+            int[] MOUHT= { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+
+            day:
+
+            Console.WriteLine("Введите число");
+            int day = int.Parse(Console.ReadLine());
+
+            if (day > 31)
+            {
+                Console.WriteLine("Некорректное число");
+                goto day;
+            }
+
+            mouht:
+
+            Console.WriteLine("Введите номер месяца");
+            int mouht = int.Parse(Console.ReadLine());
+
+            if (mouht > 12)
+            {
+                Console.WriteLine("Месяц не существует");
+                goto mouht;
+            }
+
+            for (int i = 0; i < MOUHT.Length; i++)
+            {
+                int l = mouht - 1;
+                if (i == l)
+                {
+                    if (MOUHT[i] < day)
+                    {
+                        Console.WriteLine("Некорректное число");
+                        goto day;
+                    }
+                }
+            }
+
+            Console.WriteLine("Введите год");
+            int year = int.Parse(Console.ReadLine());
+
+            int S = 0;
+
+            for (int i = 0; i < mouht - 1; i++)
+            {
+                int k = MOUHT[i];
+                S = S + k;
+            }
+
+            if ((year % 4) == 0)
+            {
+                if ((year % 400) > 0 || (year % 100) == 0)
+                {
+                    goto N;
+                }
+                S++;
+                YEAR++;
+            }
+            N:
+
+            int kday = S + day;
+            int end = YEAR - kday;
+
+            Console.WriteLine($"Количество дней от начала года {kday}");
+            Console.WriteLine($"Количество дней до следующего года {end}");
+        }
+4)
+static void Main(string[] args)
+        {
+            Console.WriteLine("Введите год:");
+            int n = int.Parse(Console.ReadLine());
+            int[] m = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+
+            for (int i = 0; i < m.Length; i++)
+            {
+                DateTime date = new DateTime(n, m[i], 1);
+                Console.WriteLine(Thursday(date));
+            }
+        }
+        static DateTime Thursday(DateTime dt)
+        {
+            if (dt.Month == 12)
+            {
+                dt = new DateTime(dt.Year, 12, 31);
+            }
+            else
+            {
+                dt = new DateTime(dt.Year, dt.Month + 1, 1);
+            }
+            while (dt.DayOfWeek != DayOfWeek.Thursday)
+            {
+                dt = dt.AddDays(-1);
+            }
+            return dt;
+        }
+5)
+static void Main(string[] args)
+        {
+            Random random = new Random();  
+            int[] data = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+            for (int i = data.Length - 1; i >= 0; i--)
+            {
+                int j = random.Next(i + 1);
+                int temp = data[j];
+                data[j] = data[i];
+                data[i] = temp;
+
+                Console.WriteLine($"{data[i]} ");
+            }
+        }
